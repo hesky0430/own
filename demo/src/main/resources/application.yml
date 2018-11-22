@@ -1,0 +1,15 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+  port: 8013
+spring:
+  profiles:
+    active: test
+mybatis:
+  mapperLocations: classpath:mapper/**/*.xml
+  typeAliasesPackage: com.example.demo.entity
+  configLocation: classpath:mybatis.xml
+logging:
+  config: classpath:log4j2-spring.xml

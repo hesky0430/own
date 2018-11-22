@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.PersonInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.entity.PersonInfo" >
+    <id column="person_no" property="personNo" jdbcType="VARCHAR" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="dist_id" property="distId" jdbcType="VARCHAR" />
+    <result column="unit_id" property="unitId" jdbcType="VARCHAR" />
+    <result column="unit_name" property="unitName" jdbcType="VARCHAR" />
+    <result column="soc_sec_no" property="socSecNo" jdbcType="VARCHAR" />
+    <result column="id_type" property="idType" jdbcType="VARCHAR" />
+    <result column="id_no" property="idNo" jdbcType="VARCHAR" />
+    <result column="insurance_type" property="insuranceType" jdbcType="VARCHAR" />
+    <result column="join_work_date" property="joinWorkDate" jdbcType="DATE" />
+    <result column="con_person" property="conPerson" jdbcType="VARCHAR" />
+    <result column="con_tel" property="conTel" jdbcType="VARCHAR" />
+    <result column="person_phone" property="personPhone" jdbcType="VARCHAR" />
+    <result column="person_addr" property="personAddr" jdbcType="VARCHAR" />
+    <result column="person_zipcode" property="personZipcode" jdbcType="VARCHAR" />
+    <result column="health_state" property="healthState" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="finger_reg_flag" property="fingerRegFlag" jdbcType="VARCHAR" />
+    <result column="face_reg_flag" property="faceRegFlag" jdbcType="VARCHAR" />
+    <result column="new_idcard" property="newIdcard" jdbcType="VARCHAR" />
+    <result column="is_new_add" property="isNewAdd" jdbcType="VARCHAR" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="datetime" property="datetime" jdbcType="TIMESTAMP" />
+    <result column="app_dist1" property="appDist1" jdbcType="VARCHAR" />
+    <result column="app_dist2" property="appDist2" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="DATE" />
+    <result column="nation" property="nation" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    person_no, person_name, dist_id, unit_id, unit_name, soc_sec_no, id_type, id_no, 
+    insurance_type, join_work_date, con_person, con_tel, person_phone, person_addr, person_zipcode, 
+    health_state, remark, finger_reg_flag, face_reg_flag, new_idcard, is_new_add, delete_flag, 
+    user_id, datetime, app_dist1, app_dist2, sex, birthday, nation
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.demo.entity.PersonInfo" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from person_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from person_info
+    where person_no = #{personNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from person_info
+    where person_no = #{personNo,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demo.entity.PersonInfo" >
+    delete from person_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.entity.PersonInfo" >
+    insert into person_info (person_no, person_name, dist_id, 
+      unit_id, unit_name, soc_sec_no, 
+      id_type, id_no, insurance_type, 
+      join_work_date, con_person, con_tel, 
+      person_phone, person_addr, person_zipcode, 
+      health_state, remark, finger_reg_flag, 
+      face_reg_flag, new_idcard, is_new_add, 
+      delete_flag, user_id, datetime, 
+      app_dist1, app_dist2, sex, 
+      birthday, nation)
+    values (#{personNo,jdbcType=VARCHAR}, #{personName,jdbcType=VARCHAR}, #{distId,jdbcType=VARCHAR}, 
+      #{unitId,jdbcType=VARCHAR}, #{unitName,jdbcType=VARCHAR}, #{socSecNo,jdbcType=VARCHAR}, 
+      #{idType,jdbcType=VARCHAR}, #{idNo,jdbcType=VARCHAR}, #{insuranceType,jdbcType=VARCHAR}, 
+      #{joinWorkDate,jdbcType=DATE}, #{conPerson,jdbcType=VARCHAR}, #{conTel,jdbcType=VARCHAR}, 
+      #{personPhone,jdbcType=VARCHAR}, #{personAddr,jdbcType=VARCHAR}, #{personZipcode,jdbcType=VARCHAR}, 
+      #{healthState,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{fingerRegFlag,jdbcType=VARCHAR}, 
+      #{faceRegFlag,jdbcType=VARCHAR}, #{newIdcard,jdbcType=VARCHAR}, #{isNewAdd,jdbcType=VARCHAR}, 
+      #{deleteFlag,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{datetime,jdbcType=TIMESTAMP}, 
+      #{appDist1,jdbcType=VARCHAR}, #{appDist2,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=DATE}, #{nation,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.entity.PersonInfo" >
+    insert into person_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="personNo != null" >
+        person_no,
+      </if>
+      <if test="personName != null" >
+        person_name,
+      </if>
+      <if test="distId != null" >
+        dist_id,
+      </if>
+      <if test="unitId != null" >
+        unit_id,
+      </if>
+      <if test="unitName != null" >
+        unit_name,
+      </if>
+      <if test="socSecNo != null" >
+        soc_sec_no,
+      </if>
+      <if test="idType != null" >
+        id_type,
+      </if>
+      <if test="idNo != null" >
+        id_no,
+      </if>
+      <if test="insuranceType != null" >
+        insurance_type,
+      </if>
+      <if test="joinWorkDate != null" >
+        join_work_date,
+      </if>
+      <if test="conPerson != null" >
+        con_person,
+      </if>
+      <if test="conTel != null" >
+        con_tel,
+      </if>
+      <if test="personPhone != null" >
+        person_phone,
+      </if>
+      <if test="personAddr != null" >
+        person_addr,
+      </if>
+      <if test="personZipcode != null" >
+        person_zipcode,
+      </if>
+      <if test="healthState != null" >
+        health_state,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="fingerRegFlag != null" >
+        finger_reg_flag,
+      </if>
+      <if test="faceRegFlag != null" >
+        face_reg_flag,
+      </if>
+      <if test="newIdcard != null" >
+        new_idcard,
+      </if>
+      <if test="isNewAdd != null" >
+        is_new_add,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="datetime != null" >
+        datetime,
+      </if>
+      <if test="appDist1 != null" >
+        app_dist1,
+      </if>
+      <if test="appDist2 != null" >
+        app_dist2,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="nation != null" >
+        nation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="personNo != null" >
+        #{personNo,jdbcType=VARCHAR},
+      </if>
+      <if test="personName != null" >
+        #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="distId != null" >
+        #{distId,jdbcType=VARCHAR},
+      </if>
+      <if test="unitId != null" >
+        #{unitId,jdbcType=VARCHAR},
+      </if>
+      <if test="unitName != null" >
+        #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="socSecNo != null" >
+        #{socSecNo,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null" >
+        #{idType,jdbcType=VARCHAR},
+      </if>
+      <if test="idNo != null" >
+        #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceType != null" >
+        #{insuranceType,jdbcType=VARCHAR},
+      </if>
+      <if test="joinWorkDate != null" >
+        #{joinWorkDate,jdbcType=DATE},
+      </if>
+      <if test="conPerson != null" >
+        #{conPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="conTel != null" >
+        #{conTel,jdbcType=VARCHAR},
+      </if>
+      <if test="personPhone != null" >
+        #{personPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="personAddr != null" >
+        #{personAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="personZipcode != null" >
+        #{personZipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="healthState != null" >
+        #{healthState,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="fingerRegFlag != null" >
+        #{fingerRegFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="faceRegFlag != null" >
+        #{faceRegFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="newIdcard != null" >
+        #{newIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="isNewAdd != null" >
+        #{isNewAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="datetime != null" >
+        #{datetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appDist1 != null" >
+        #{appDist1,jdbcType=VARCHAR},
+      </if>
+      <if test="appDist2 != null" >
+        #{appDist2,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="nation != null" >
+        #{nation,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.entity.PersonInfo" resultType="java.lang.Integer" >
+    select count(*) from person_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update person_info
+    <set >
+      <if test="record.personNo != null" >
+        person_no = #{record.personNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.personName != null" >
+        person_name = #{record.personName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.distId != null" >
+        dist_id = #{record.distId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitId != null" >
+        unit_id = #{record.unitId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitName != null" >
+        unit_name = #{record.unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.socSecNo != null" >
+        soc_sec_no = #{record.socSecNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idType != null" >
+        id_type = #{record.idType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idNo != null" >
+        id_no = #{record.idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.insuranceType != null" >
+        insurance_type = #{record.insuranceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.joinWorkDate != null" >
+        join_work_date = #{record.joinWorkDate,jdbcType=DATE},
+      </if>
+      <if test="record.conPerson != null" >
+        con_person = #{record.conPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conTel != null" >
+        con_tel = #{record.conTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.personPhone != null" >
+        person_phone = #{record.personPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.personAddr != null" >
+        person_addr = #{record.personAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.personZipcode != null" >
+        person_zipcode = #{record.personZipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.healthState != null" >
+        health_state = #{record.healthState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fingerRegFlag != null" >
+        finger_reg_flag = #{record.fingerRegFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faceRegFlag != null" >
+        face_reg_flag = #{record.faceRegFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newIdcard != null" >
+        new_idcard = #{record.newIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isNewAdd != null" >
+        is_new_add = #{record.isNewAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deleteFlag != null" >
+        delete_flag = #{record.deleteFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datetime != null" >
+        datetime = #{record.datetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.appDist1 != null" >
+        app_dist1 = #{record.appDist1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appDist2 != null" >
+        app_dist2 = #{record.appDist2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthday != null" >
+        birthday = #{record.birthday,jdbcType=DATE},
+      </if>
+      <if test="record.nation != null" >
+        nation = #{record.nation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update person_info
+    set person_no = #{record.personNo,jdbcType=VARCHAR},
+      person_name = #{record.personName,jdbcType=VARCHAR},
+      dist_id = #{record.distId,jdbcType=VARCHAR},
+      unit_id = #{record.unitId,jdbcType=VARCHAR},
+      unit_name = #{record.unitName,jdbcType=VARCHAR},
+      soc_sec_no = #{record.socSecNo,jdbcType=VARCHAR},
+      id_type = #{record.idType,jdbcType=VARCHAR},
+      id_no = #{record.idNo,jdbcType=VARCHAR},
+      insurance_type = #{record.insuranceType,jdbcType=VARCHAR},
+      join_work_date = #{record.joinWorkDate,jdbcType=DATE},
+      con_person = #{record.conPerson,jdbcType=VARCHAR},
+      con_tel = #{record.conTel,jdbcType=VARCHAR},
+      person_phone = #{record.personPhone,jdbcType=VARCHAR},
+      person_addr = #{record.personAddr,jdbcType=VARCHAR},
+      person_zipcode = #{record.personZipcode,jdbcType=VARCHAR},
+      health_state = #{record.healthState,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      finger_reg_flag = #{record.fingerRegFlag,jdbcType=VARCHAR},
+      face_reg_flag = #{record.faceRegFlag,jdbcType=VARCHAR},
+      new_idcard = #{record.newIdcard,jdbcType=VARCHAR},
+      is_new_add = #{record.isNewAdd,jdbcType=VARCHAR},
+      delete_flag = #{record.deleteFlag,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      datetime = #{record.datetime,jdbcType=TIMESTAMP},
+      app_dist1 = #{record.appDist1,jdbcType=VARCHAR},
+      app_dist2 = #{record.appDist2,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      birthday = #{record.birthday,jdbcType=DATE},
+      nation = #{record.nation,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.PersonInfo" >
+    update person_info
+    <set >
+      <if test="personName != null" >
+        person_name = #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="distId != null" >
+        dist_id = #{distId,jdbcType=VARCHAR},
+      </if>
+      <if test="unitId != null" >
+        unit_id = #{unitId,jdbcType=VARCHAR},
+      </if>
+      <if test="unitName != null" >
+        unit_name = #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="socSecNo != null" >
+        soc_sec_no = #{socSecNo,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null" >
+        id_type = #{idType,jdbcType=VARCHAR},
+      </if>
+      <if test="idNo != null" >
+        id_no = #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceType != null" >
+        insurance_type = #{insuranceType,jdbcType=VARCHAR},
+      </if>
+      <if test="joinWorkDate != null" >
+        join_work_date = #{joinWorkDate,jdbcType=DATE},
+      </if>
+      <if test="conPerson != null" >
+        con_person = #{conPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="conTel != null" >
+        con_tel = #{conTel,jdbcType=VARCHAR},
+      </if>
+      <if test="personPhone != null" >
+        person_phone = #{personPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="personAddr != null" >
+        person_addr = #{personAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="personZipcode != null" >
+        person_zipcode = #{personZipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="healthState != null" >
+        health_state = #{healthState,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="fingerRegFlag != null" >
+        finger_reg_flag = #{fingerRegFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="faceRegFlag != null" >
+        face_reg_flag = #{faceRegFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="newIdcard != null" >
+        new_idcard = #{newIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="isNewAdd != null" >
+        is_new_add = #{isNewAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="datetime != null" >
+        datetime = #{datetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appDist1 != null" >
+        app_dist1 = #{appDist1,jdbcType=VARCHAR},
+      </if>
+      <if test="appDist2 != null" >
+        app_dist2 = #{appDist2,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="nation != null" >
+        nation = #{nation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where person_no = #{personNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.PersonInfo" >
+    update person_info
+    set person_name = #{personName,jdbcType=VARCHAR},
+      dist_id = #{distId,jdbcType=VARCHAR},
+      unit_id = #{unitId,jdbcType=VARCHAR},
+      unit_name = #{unitName,jdbcType=VARCHAR},
+      soc_sec_no = #{socSecNo,jdbcType=VARCHAR},
+      id_type = #{idType,jdbcType=VARCHAR},
+      id_no = #{idNo,jdbcType=VARCHAR},
+      insurance_type = #{insuranceType,jdbcType=VARCHAR},
+      join_work_date = #{joinWorkDate,jdbcType=DATE},
+      con_person = #{conPerson,jdbcType=VARCHAR},
+      con_tel = #{conTel,jdbcType=VARCHAR},
+      person_phone = #{personPhone,jdbcType=VARCHAR},
+      person_addr = #{personAddr,jdbcType=VARCHAR},
+      person_zipcode = #{personZipcode,jdbcType=VARCHAR},
+      health_state = #{healthState,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      finger_reg_flag = #{fingerRegFlag,jdbcType=VARCHAR},
+      face_reg_flag = #{faceRegFlag,jdbcType=VARCHAR},
+      new_idcard = #{newIdcard,jdbcType=VARCHAR},
+      is_new_add = #{isNewAdd,jdbcType=VARCHAR},
+      delete_flag = #{deleteFlag,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      datetime = #{datetime,jdbcType=TIMESTAMP},
+      app_dist1 = #{appDist1,jdbcType=VARCHAR},
+      app_dist2 = #{appDist2,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=DATE},
+      nation = #{nation,jdbcType=VARCHAR}
+    where person_no = #{personNo,jdbcType=VARCHAR}
+  </update>
+</mapper>
